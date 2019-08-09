@@ -8,7 +8,11 @@ import json
 import requests
 import os
 from string import Template
+import coloredlogs, logging
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+coloredlogs.install(level='DEBUG', logger=logger)
 
 language_model = os.environ.get("LANGUAGE_MODEL") # Specify the Narrowband model for your language
 
@@ -75,9 +79,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         watson.close()
     def on_watson_message(self, message):
         #THIS IS WHERE TO HANDLE YOUR RESPONSES FROM WATSON
-        print message
-
-
+        # print message
+        logger.debug(message)
 
 
 def main():
