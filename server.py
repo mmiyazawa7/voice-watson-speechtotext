@@ -10,10 +10,10 @@ import os
 from string import Template
 
 
-language_model = 'en-UK_NarrowbandModel' # Specify the Narrowband model for your language
+language_model = os.environ.get("LANGUAGE_MODEL") # Specify the Narrowband model for your language
 
-WATSON_API_KEY = 'YOUR_API_KEY' #Change to your Watson/IBM Cloud Speech to Text API Key
-HOSTNAME = 'voice.ngrok.io' #Change to the hostname of your server
+watson_api_key = os.environ.get("WATSON_API_KEY") #Change to your Watson/IBM Cloud Speech to Text API Key
+webhook_hostname = os.environ.get("WEBHOOK_HOSTNAME" #Change to the hostname of your server
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -28,7 +28,7 @@ class CallHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def get(self):
         data={}
-        data['hostname'] = HOSTNAME
+        data['hostname'] = webhook_hostname
         filein = open('ncco.json')
         src = Template(filein.read())
         filein.close()
@@ -52,7 +52,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def open(self):
         print("Websocket Call Connected")
         uri = 'wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize?model={}'.format(language_model)
-        http_request = tornado.httpclient.HTTPRequest(uri, auth_username="apikey", auth_password=WATSON_API_KEY)
+        http_request = tornado.httpclient.HTTPRequest(uri, auth_username="apikey", auth_password=watson_api_key)
         self.watson_future = tornado.websocket.websocket_connect(http_request, on_message_callback=self.on_watson_message)
     @gen.coroutine
     def on_message(self, message):
@@ -89,7 +89,7 @@ def main():
                                             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': static_path}),
                                         ])
     http_server = tornado.httpserver.HTTPServer(application)
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT"))
     http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
 

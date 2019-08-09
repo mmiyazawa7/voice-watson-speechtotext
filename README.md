@@ -32,3 +32,35 @@ Link a number to your application and then when you call the number you will be 
 
 ## Extending 
 This example code simply prints the reponses from Watson to the console, however to integrate it with your own applicaiton you should extend the `on_watson_message` [function in server.py](https://github.com/nexmo-community/voice-watson-speechtotext/blob/master/server.py#L94)
+
+## heroku deploy
+
+Install Heroku CLI Tool
+
+    $ brew install heroku-toolbelt
+    $ heroku login
+    Enter your Heroku credentials.
+    Email: [email]
+    Password (typing will be hidden)
+    Logged in as [email]
+    
+Deploy this App to Heroku
+
+    git clone https://github.com/mmiyazawa7/voice-watson-speechtotext.git
+    $ heroku create
+    $ git push heroku master
+    
+Setup env parameters to Config Vars in heroku
+
+    Open 'https://dashboard.heroku.com/apps/(your heroku app name)/settings'
+    Set `Concig Vars`
+    
+    LANGUAGE_MODEL     (Your Language Model, e.g. ja-JP_NarrowbandModel)
+    WATSON_API_KEY     (Change to your Watson/IBM Cloud Speech to Text API Key)
+    HOSTNAME           (Change to the hostname of your webhook server)
+    PORT               (Webhook Port) 
+    
+Monitor heroku logs
+
+    $ heroku logs
+    $ heroku logs --tail
