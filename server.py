@@ -12,7 +12,6 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-coloredlogs.install(level='DEBUG', logger=logger)
 
 language_model = os.environ.get("LANGUAGE_MODEL") # Specify the Narrowband model for your language
 
