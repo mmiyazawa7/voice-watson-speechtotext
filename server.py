@@ -8,7 +8,7 @@ import json
 import requests
 import os
 from string import Template
-import coloredlogs, logging
+import logging
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
