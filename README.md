@@ -57,7 +57,7 @@ Setup env parameters to Config Vars in heroku
     
     LANGUAGE_MODEL     (Your Language Model, e.g. ja-JP_NarrowbandModel)
     WATSON_API_KEY     (Change to your Watson/IBM Cloud Speech to Text API Key)
-    HOSTNAME           (Change to the hostname of your webhook server)
+    WEBHOOK_HOSTNAME   (Change to the hostname of your webhook server)
     PORT               (Webhook Port) 
     
 Monitor heroku logs

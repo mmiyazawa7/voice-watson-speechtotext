@@ -13,7 +13,7 @@ from string import Template
 language_model = os.environ.get("LANGUAGE_MODEL") # Specify the Narrowband model for your language
 
 watson_api_key = os.environ.get("WATSON_API_KEY") #Change to your Watson/IBM Cloud Speech to Text API Key
-webhook_hostname = os.environ.get("WEBHOOK_HOSTNAME" #Change to the hostname of your server
+webhook_hostname = os.environ.get("WEBHOOK_HOSTNAME") #Change to the hostname of your server
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -89,7 +89,7 @@ def main():
                                             (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': static_path}),
                                         ])
     http_server = tornado.httpserver.HTTPServer(application)
-    port = int(os.environ.get("PORT"))
+    port = int(os.environ.get("PORT", 8000))
     http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
 
